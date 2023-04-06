@@ -24,6 +24,7 @@ public class UsuarioService {
                 .build();
 
         usuarioRepository.save(usuario);
+        this.mensagenObservacao(usuario);
         this.calcularImpostoDeRenda(usuario);
 
         return usuario;
@@ -38,10 +39,20 @@ public class UsuarioService {
 
         if (resultado < TETO) {
             usuario.setResultado_imposto(Status.VOCE_ESTA_INSENTO_DA_OBRIGATORIEDADE);
-            usuario.setObservacao("VOÇE");
         } else {
             usuario.setResultado_imposto(Status.VOCE_ESTA_OBRIGADO_A_DECLARAR_O_IMPOSTO_DE_RENDA);
 
+        }
+
+        usuarioRepository.save(usuario);
+
+    }
+
+    //ALERTA O USUARIO QUE NAO ESTA OBRIGADO MAS PODE TER UM VALOR A REESTITUIR
+    private void mensagenObservacao(Usuario usuario) {
+
+        if (usuario.getSalario() >= 2200 && usuario.getSalario() <= 2370) {
+            usuario.setObservacao("ATENÇAO VOÇE NÃO ESTA OBRIGADO A DECLARAR , MAS PODE TER REESTITUIÇAO A RECEBER, CONSULTE UMA CONTABILIDADE COM SEU INFORME DE RENDIMENTO");
         }
 
         usuarioRepository.save(usuario);

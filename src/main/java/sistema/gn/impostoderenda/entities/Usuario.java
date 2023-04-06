@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 import sistema.gn.impostoderenda.Status;
 
 import java.io.Serializable;
@@ -20,10 +21,14 @@ public class Usuario implements Serializable {
     private Long id;
     @Column(nullable = false)
     private String nome;
+    @CPF
     private String cpf;
     @Column(nullable = false)
     private double salario;
+
     private double rendimentoTributavel;
+
     private Status resultado_imposto;
+
     private String observacao;
 }
