@@ -66,8 +66,8 @@ public class UsuarioService {
     private void mensagenObservacao(Usuario usuario) {
 
         if (usuario.getSalario() >= 2200 && usuario.getSalario() <= 2375) {
-            usuario.setObservacao("ATENÇAO VOÇE NÃO ESTA OBRIGADO A DECLARAR , MAS PODE TER REESTITUIÇAO A RECEBER, CONSULTE UMA CONTABILIDADE COM SEU INFORME DE RENDIMENTO");
-            //enviar email com o contato do escritorio para declaraçao de imposto de renda
+            usuario.setObservacao("UM EMAIL FOI ENVIADO PARA VOÇE");
+            emailService.enviarEmailObservacaoReestituicao(usuario);
         }
 
         usuarioRepository.save(usuario);
