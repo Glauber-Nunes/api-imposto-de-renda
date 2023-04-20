@@ -8,6 +8,7 @@ import sistema.gn.impostoderenda.DTOs.UsuarioRequestDto;
 import sistema.gn.impostoderenda.enums.Status;
 import sistema.gn.impostoderenda.entities.Usuario;
 import sistema.gn.impostoderenda.repositories.UsuarioRepository;
+import sistema.gn.impostoderenda.services.exceptions.NotFound;
 
 import java.util.Optional;
 
@@ -40,7 +41,18 @@ public class UsuarioService {
     public UsuarioGetDto consultarResultado(Long id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
 
+        usuario.orElseThrow(() -> new NotFound("Resultado Não Encontrado"));
+
         return new UsuarioGetDto(usuario.get());
+    }
+
+    public void delete(Long id) {
+
+        if (usuarioRepository.existsById(id)) {
+            usuarioRepository.deleteById(id);
+        }
+
+        throw new NotFound("Resultado Não Encontrado");
     }
 
     private void calcularImpostoDeRenda(Usuario usuario) {

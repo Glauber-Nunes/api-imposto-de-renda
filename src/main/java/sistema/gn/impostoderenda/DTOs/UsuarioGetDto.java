@@ -15,6 +15,7 @@ public class UsuarioGetDto {
 
     private String nome;
     private String email;
+    private double salario;
     private Status resultado_imposto;
 
     public UsuarioGetDto(Usuario usuario) {

@@ -25,4 +25,10 @@ public class UsuarioController {
     public ResponseEntity<UsuarioGetDto> consultarResultado(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioService.consultarResultado(id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        usuarioService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body("DELETADO COM SUCESSO");
+    }
 }
